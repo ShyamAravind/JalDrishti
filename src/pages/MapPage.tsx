@@ -320,6 +320,7 @@ const THEME_BASEMAP_FILTER: Record<ThemeName | 'Custom', string> = {
   'Vegetation':      'hue-rotate(70deg) saturate(1.6) brightness(0.92)',
   'Drainage':        'hue-rotate(195deg) saturate(1.7) contrast(1.1)',
   'Infrastructure':  'grayscale(0.65) contrast(1.15)',
+  'Satellite Intelligence': 'saturate(1.2) contrast(1.05)',
   'Custom':          '',
 };
 

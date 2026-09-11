@@ -2,10 +2,10 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { getProjects } from '../services/projectService';
 import { getWatersheds } from '../services/watershedService';
 import { assessIntervention, computeInterventionRankings } from '../utils/interventionScoring';
-import type { Project, WatershedFeature, InterventionAssessment, InterventionRankingItem, ProjectType } from '../types';
+import type { Project, WatershedFeature, ProjectType } from '../types';
 import {
-  Award, Filter, TrendingUp, CheckCircle, AlertTriangle, ShieldCheck,
-  Building2, Droplets, Sprout, ArrowUpDown, ChevronRight, Info,
+  Award, Filter, ShieldCheck,
+  Building2, Info,
 } from 'lucide-react';
 
 const INTERVENTION_TYPES: ProjectType[] = ['Check Dam', 'Farm Pond', 'Afforestation', 'Contour Trenching'];
@@ -13,7 +13,7 @@ const INTERVENTION_TYPES: ProjectType[] = ['Check Dam', 'Farm Pond', 'Afforestat
 const InterventionAssessmentPage: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [watersheds, setWatersheds] = useState<WatershedFeature[]>([]);
-  const [loading, setLoading] = useState(true);
+ 
 
   // Filters
   const [selectedDistrict, setSelectedDistrict] = useState<string>('all');
@@ -25,7 +25,7 @@ const InterventionAssessmentPage: React.FC = () => {
     Promise.all([getProjects(), getWatersheds()]).then(([pList, wList]) => {
       setProjects(pList);
       setWatersheds(wList);
-      setLoading(false);
+      
     });
   }, []);
 

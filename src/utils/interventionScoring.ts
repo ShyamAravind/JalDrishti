@@ -1,6 +1,6 @@
 import type {
   Project,
-  ProjectType,
+  
   InterventionAssessment,
   InterventionRankingItem,
 } from '../types';

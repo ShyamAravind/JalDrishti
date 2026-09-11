@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { getWatersheds } from '../services/watershedService';
 import { getLulcTrendByWatershed } from '../services/gisService';
 import {
-  getSatelliteStatus,
+  
   getSentinel1SoilMoisture,
   getTemporalChange,
   getLandDegradation,
@@ -11,14 +11,14 @@ import LulcTrendChart from '../components/LulcTrendChart';
 import type {
   WatershedFeature,
   LulcTrendEntry,
-  SatelliteStatusResponse,
+  
   Sentinel1SoilMoistureResult,
   TemporalChangeResult,
   LandDegradationResult,
 } from '../types';
 import {
-  TrendingUp, TrendingDown, Info, Satellite, Loader2, AlertTriangle,
-  Droplets, Waves, ShieldCheck, CheckCircle2, Calendar, Radio, Activity,
+  TrendingUp, TrendingDown, Satellite, Loader2, AlertTriangle,
+  Droplets, Waves, ShieldCheck, CheckCircle2,  Radio, Activity,
 } from 'lucide-react';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
@@ -45,7 +45,7 @@ const SpatialAnalysis: React.FC = () => {
   const [watersheds, setWatersheds] = useState<WatershedFeature[]>([]);
   const [selectedWsId, setSelectedWsId] = useState<string>('');
   const [trendData, setTrendData] = useState<LulcTrendEntry | null>(null);
-  const [providerStatus, setProviderStatus] = useState<SatelliteStatusResponse | null>(null);
+  
 
   // ── Live Earth Engine LULC state ──────────────────────────────────────────
   const [liveResult, setLiveResult] = useState<LiveLulcResult | null>(null);
@@ -80,7 +80,7 @@ const SpatialAnalysis: React.FC = () => {
         setSelectedWsId(ws[0].properties.id);
       }
     });
-    getSatelliteStatus().then(setProviderStatus);
+    
   }, []);
 
   useEffect(() => {
