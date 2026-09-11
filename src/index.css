@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-surface-white text-text-dark font-sans;
+    margin: 0;
+  }
+}
+
+/* OpenLayers map styles to ensure the container is full-height and styled correctly */
+.ol-viewport {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Custom styles for leaflet/OpenLayers controls to fit JalDrishti colors */
+.ol-zoom {
+  top: 1rem !important;
+  left: 1rem !important;
+}
+.ol-zoom button {
+  background-color: #2C6E8E !important;
+  color: #FFFFFF !important;
+  border-radius: 4px !important;
+  margin: 2px !important;
+  font-weight: bold !important;
+}
+.ol-zoom button:hover {
+  background-color: #1A4460 !important;
+}
+
+.ol-attribution {
+  font-size: 10px !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 4px !important;
+}
+
+/* Draggable Before After slider handles color */
+input[type="range"]::-webkit-slider-thumb {
+  background: #2C6E8E;
+}
+
+/* Print Specific CSS */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Hide navigation, sidebars and controls when printing */
+  header, nav, aside, button, select, input {
+    display: none !important;
+  }
+
+  /* Ensure page takes full width */
+  main {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Fix page breaks for reports */
+  .page-break {
+    page-break-before: always;
+  }
+}

@@ -1,0 +1,155 @@
+[
+  {
+    "project_id": "proj-001",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 12,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-002",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "fail",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 38,
+    "trust_score": 4
+  },
+  {
+    "project_id": "proj-003",
+    "gps_check": "fail",
+    "timestamp_check": "fail",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 520,
+    "trust_score": 3
+  },
+  {
+    "project_id": "proj-004",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 8,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-005",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "fail",
+    "distance_from_registered_location_m": 65,
+    "trust_score": 4
+  },
+  {
+    "project_id": "proj-006",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 22,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-007",
+    "gps_check": "fail",
+    "timestamp_check": "fail",
+    "metadata_check": "fail",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 890,
+    "trust_score": 2
+  },
+  {
+    "project_id": "proj-008",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 15,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-009",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 9,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-010",
+    "gps_check": "pass",
+    "timestamp_check": "fail",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 44,
+    "trust_score": 4
+  },
+  {
+    "project_id": "proj-011",
+    "gps_check": "fail",
+    "timestamp_check": "fail",
+    "metadata_check": "fail",
+    "duplicate_check": "fail",
+    "distance_from_registered_location_m": 1240,
+    "trust_score": 1
+  },
+  {
+    "project_id": "proj-012",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 18,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-013",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "fail",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 31,
+    "trust_score": 4
+  },
+  {
+    "project_id": "proj-014",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 6,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-015",
+    "gps_check": "pass",
+    "timestamp_check": "pass",
+    "metadata_check": "pass",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 11,
+    "trust_score": 5
+  },
+  {
+    "project_id": "proj-016",
+    "gps_check": "pass",
+    "timestamp_check": "fail",
+    "metadata_check": "pass",
+    "duplicate_check": "fail",
+    "distance_from_registered_location_m": 175,
+    "trust_score": 3
+  },
+  {
+    "project_id": "proj-017",
+    "gps_check": "fail",
+    "timestamp_check": "fail",
+    "metadata_check": "fail",
+    "duplicate_check": "pass",
+    "distance_from_registered_location_m": 760,
+    "trust_score": 2
+  }
+]

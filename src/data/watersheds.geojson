@@ -1,0 +1,89 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "ws-001",
+      "properties": {
+        "id": "ws-001",
+        "name": "Chambal Upper Sub-Basin",
+        "district": "Morena",
+        "state": "Madhya Pradesh",
+        "area_sq_km": 342.5
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [77.9, 26.5],
+          [78.4, 26.5],
+          [78.4, 26.9],
+          [77.9, 26.9],
+          [77.9, 26.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ws-002",
+      "properties": {
+        "id": "ws-002",
+        "name": "Banas Watershed — Tonk Block",
+        "district": "Tonk",
+        "state": "Rajasthan",
+        "area_sq_km": 489.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [75.6, 25.8],
+          [76.1, 25.8],
+          [76.1, 26.2],
+          [75.6, 26.2],
+          [75.6, 25.8]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ws-003",
+      "properties": {
+        "id": "ws-003",
+        "name": "Mahi Bajaj Sagar — Dungarpur Zone",
+        "district": "Dungarpur",
+        "state": "Rajasthan",
+        "area_sq_km": 276.8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [73.6, 23.6],
+          [74.1, 23.6],
+          [74.1, 23.95],
+          [73.6, 23.95],
+          [73.6, 23.6]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ws-004",
+      "properties": {
+        "id": "ws-004",
+        "name": "Wainganga Headwaters — Balaghat",
+        "district": "Balaghat",
+        "state": "Madhya Pradesh",
+        "area_sq_km": 518.0
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [80.1, 21.7],
+          [80.6, 21.7],
+          [80.6, 22.1],
+          [80.1, 22.1],
+          [80.1, 21.7]
+        ]]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "jaldrishti-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Express backend for JalDrishti — handles authentication (bcrypt + JWT), Earth Engine satellite analysis proxy (Landsat 8/9 NDVI/NDWI), and Bhoonidhi STAC API proxy. Deployed as a Render Web Service.",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@google/earthengine": "^1.7.41",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

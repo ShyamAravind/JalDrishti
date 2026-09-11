@@ -1,0 +1,688 @@
+[
+  {
+    "id": "proj-001",
+    "name": "Chambal Check Dam — Site A",
+    "watershed_id": "ws-001",
+    "district": "Morena",
+    "lat": 26.62,
+    "lng": 78.05,
+    "type": "Check Dam",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2023-04-01",
+    "structure_age_years": 2,
+    "last_inspection_date": "2026-03-15",
+    "inspection_history": [
+      {
+        "date": "2023-10-01",
+        "note": "Foundation laid, material stacked on site."
+      },
+      {
+        "date": "2024-02-15",
+        "note": "Structure 60% complete, masonry in progress."
+      },
+      {
+        "date": "2024-07-30",
+        "note": "Construction completed, water impoundment begun."
+      },
+      {
+        "date": "2026-03-15",
+        "note": "Annual inspection: structure intact, no seepage detected."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/c9e5dd8197/600/400?grayscale",
+        "lat": 26.62,
+        "lng": 78.05,
+        "timestamp": "2023-04-05T09:30:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/8ed3795bda/600/400",
+        "lat": 26.62,
+        "lng": 78.05,
+        "timestamp": "2024-08-02T10:15:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-002",
+    "name": "Morena Afforestation — Block N2",
+    "watershed_id": "ws-001",
+    "district": "Morena",
+    "lat": 26.7,
+    "lng": 78.18,
+    "type": "Afforestation",
+    "status": "Ongoing",
+    "completion_pct": 62,
+    "start_date": "2024-08-15",
+    "structure_age_years": 0,
+    "last_inspection_date": "2026-01-20",
+    "inspection_history": [
+      {
+        "date": "2024-09-01",
+        "note": "Nursery prepared, 2000 saplings ready for planting."
+      },
+      {
+        "date": "2025-02-10",
+        "note": "First batch of 1200 saplings planted, survival rate ~78%."
+      },
+      {
+        "date": "2026-01-20",
+        "note": "Phase 2 underway; 3800/6000 planted."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/e6c9b64c48/600/400?grayscale",
+        "lat": 26.7,
+        "lng": 78.18,
+        "timestamp": "2024-08-16T08:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/c68d99013c/600/400",
+        "lat": 26.7,
+        "lng": 78.18,
+        "timestamp": "2025-12-01T11:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-003",
+    "name": "Chambal Contour Trenching — Zone C",
+    "watershed_id": "ws-001",
+    "district": "Morena",
+    "lat": 26.55,
+    "lng": 78.22,
+    "type": "Contour Trenching",
+    "status": "Delayed",
+    "completion_pct": 28,
+    "start_date": "2024-06-01",
+    "structure_age_years": 0,
+    "last_inspection_date": "2025-04-10",
+    "inspection_history": [
+      {
+        "date": "2024-07-05",
+        "note": "Trench marking done, earthworks 15% complete."
+      },
+      {
+        "date": "2025-04-10",
+        "note": "Progress stalled due to contractor issue; 28% done."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/5735469554/600/400?grayscale",
+        "lat": 26.551,
+        "lng": 78.221,
+        "timestamp": "2024-06-02T07:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/16b038a9e6/600/400",
+        "lat": 26.555,
+        "lng": 78.218,
+        "timestamp": "2025-03-15T09:30:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-004",
+    "name": "Morena Farm Pond — Village Piplai",
+    "watershed_id": "ws-001",
+    "district": "Morena",
+    "lat": 26.78,
+    "lng": 78.35,
+    "type": "Farm Pond",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2023-09-01",
+    "structure_age_years": 2,
+    "last_inspection_date": "2025-10-08",
+    "inspection_history": [
+      {
+        "date": "2023-11-15",
+        "note": "Excavation completed, lining applied."
+      },
+      {
+        "date": "2024-04-20",
+        "note": "First season water storage: 45,000 litres."
+      },
+      {
+        "date": "2025-10-08",
+        "note": "Structure in good condition; minor edge reinforcement done."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/a5d8d32bb5/600/400?grayscale",
+        "lat": 26.78,
+        "lng": 78.35,
+        "timestamp": "2023-09-03T06:30:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/44d8ce019f/600/400",
+        "lat": 26.78,
+        "lng": 78.35,
+        "timestamp": "2024-05-01T08:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-005",
+    "name": "Banas Check Dam — Tonk North",
+    "watershed_id": "ws-002",
+    "district": "Tonk",
+    "lat": 25.92,
+    "lng": 75.75,
+    "type": "Check Dam",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2022-11-01",
+    "structure_age_years": 3,
+    "last_inspection_date": "2025-08-22",
+    "inspection_history": [
+      {
+        "date": "2023-03-10",
+        "note": "Dam completed and operational."
+      },
+      {
+        "date": "2024-08-05",
+        "note": "Annual check: crest level intact."
+      },
+      {
+        "date": "2025-08-22",
+        "note": "3-year inspection: minor crack on eastern face; repair recommended."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/19fb91e976/600/400?grayscale",
+        "lat": 25.92,
+        "lng": 75.75,
+        "timestamp": "2022-11-03T09:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/22e379f166/600/400",
+        "lat": 25.92,
+        "lng": 75.75,
+        "timestamp": "2023-04-01T10:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-006",
+    "name": "Tonk Farm Pond — Cluster B",
+    "watershed_id": "ws-002",
+    "district": "Tonk",
+    "lat": 26.08,
+    "lng": 75.95,
+    "type": "Farm Pond",
+    "status": "Ongoing",
+    "completion_pct": 74,
+    "start_date": "2025-03-01",
+    "structure_age_years": 0,
+    "last_inspection_date": "2026-05-15",
+    "inspection_history": [
+      {
+        "date": "2025-04-10",
+        "note": "Excavation 50% done."
+      },
+      {
+        "date": "2026-05-15",
+        "note": "Lining in progress; 74% complete overall."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/18ba917cf1/600/400?grayscale",
+        "lat": 26.08,
+        "lng": 75.95,
+        "timestamp": "2025-03-02T07:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/87142f198c/600/400",
+        "lat": 26.08,
+        "lng": 75.95,
+        "timestamp": "2026-04-20T08:30:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-007",
+    "name": "Banas Afforestation — Deoli Block",
+    "watershed_id": "ws-002",
+    "district": "Tonk",
+    "lat": 26.0,
+    "lng": 75.68,
+    "type": "Afforestation",
+    "status": "Delayed",
+    "completion_pct": 19,
+    "start_date": "2024-10-01",
+    "structure_age_years": 0,
+    "last_inspection_date": "2025-02-05",
+    "inspection_history": [
+      {
+        "date": "2024-11-01",
+        "note": "Land cleared; nursery not yet established."
+      },
+      {
+        "date": "2025-02-05",
+        "note": "Contractor mobilisation delayed; no new planting done."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/a90f75df3e/600/400?grayscale",
+        "lat": 26.001,
+        "lng": 75.68,
+        "timestamp": "2024-10-02T08:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/8299f78623/600/400",
+        "lat": 26.005,
+        "lng": 75.676,
+        "timestamp": "2025-01-15T09:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-008",
+    "name": "Tonk Contour Trenching — East Slope",
+    "watershed_id": "ws-002",
+    "district": "Tonk",
+    "lat": 26.14,
+    "lng": 76.02,
+    "type": "Contour Trenching",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2023-07-01",
+    "structure_age_years": 2,
+    "last_inspection_date": "2026-02-10",
+    "inspection_history": [
+      {
+        "date": "2023-09-15",
+        "note": "All trenches dug per design."
+      },
+      {
+        "date": "2024-06-01",
+        "note": "Grass established in trenches; soil moisture improvement noted."
+      },
+      {
+        "date": "2026-02-10",
+        "note": "Inspection: structure performing well; sediment trap full, needs desiltation."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/dee280bb00/600/400?grayscale",
+        "lat": 26.14,
+        "lng": 76.02,
+        "timestamp": "2023-07-03T06:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/7bbc3d4310/600/400",
+        "lat": 26.14,
+        "lng": 76.02,
+        "timestamp": "2024-07-01T09:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-009",
+    "name": "Dungarpur Check Dam — Site D1",
+    "watershed_id": "ws-003",
+    "district": "Dungarpur",
+    "lat": 23.72,
+    "lng": 73.68,
+    "type": "Check Dam",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2022-08-01",
+    "structure_age_years": 3,
+    "last_inspection_date": "2025-12-20",
+    "inspection_history": [
+      {
+        "date": "2022-12-01",
+        "note": "Check dam operational."
+      },
+      {
+        "date": "2023-09-01",
+        "note": "Monsoon performance: excellent. Groundwater table +0.8m."
+      },
+      {
+        "date": "2025-12-20",
+        "note": "3-year structural review: stable; vegetation on banks well established."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "/images/before_dam.png",
+        "lat": 23.72,
+        "lng": 73.68,
+        "timestamp": "2022-08-03T07:00:00Z"
+      },
+      "after": {
+        "url": "/images/after_dam.png",
+        "lat": 23.72,
+        "lng": 73.68,
+        "timestamp": "2023-01-10T08:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-010",
+    "name": "Mahi Afforestation — Slope Rehab",
+    "watershed_id": "ws-003",
+    "district": "Dungarpur",
+    "lat": 23.8,
+    "lng": 73.75,
+    "type": "Afforestation",
+    "status": "Ongoing",
+    "completion_pct": 55,
+    "start_date": "2025-01-15",
+    "structure_age_years": 0,
+    "last_inspection_date": "2026-06-10",
+    "inspection_history": [
+      {
+        "date": "2025-03-01",
+        "note": "1500 saplings planted on upper slope."
+      },
+      {
+        "date": "2026-06-10",
+        "note": "Survival rate ~68%; additional planting of 800 saplings scheduled."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "/images/before_forest.png",
+        "lat": 23.8,
+        "lng": 73.75,
+        "timestamp": "2025-01-16T07:30:00Z"
+      },
+      "after": {
+        "url": "/images/after_forest.png",
+        "lat": 23.8,
+        "lng": 73.75,
+        "timestamp": "2026-05-15T09:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-011",
+    "name": "Dungarpur Farm Pond — Site F3",
+    "watershed_id": "ws-003",
+    "district": "Dungarpur",
+    "lat": 23.88,
+    "lng": 73.92,
+    "type": "Farm Pond",
+    "status": "Delayed",
+    "completion_pct": 35,
+    "start_date": "2025-06-01",
+    "structure_age_years": 0,
+    "last_inspection_date": "2025-08-30",
+    "inspection_history": [
+      {
+        "date": "2025-07-01",
+        "note": "Excavation started; 35% done."
+      },
+      {
+        "date": "2025-08-30",
+        "note": "Work paused due to monsoon flooding of site."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "/images/before_pond.png",
+        "lat": 23.881,
+        "lng": 73.919,
+        "timestamp": "2025-06-02T06:00:00Z"
+      },
+      "after": {
+        "url": "/images/after_pond.png",
+        "lat": 23.884,
+        "lng": 73.924,
+        "timestamp": "2025-08-10T08:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-012",
+    "name": "Balaghat Forest Check Dam — BL01",
+    "watershed_id": "ws-004",
+    "district": "Balaghat",
+    "lat": 21.82,
+    "lng": 80.22,
+    "type": "Check Dam",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2023-03-01",
+    "structure_age_years": 2,
+    "last_inspection_date": "2025-11-14",
+    "inspection_history": [
+      {
+        "date": "2023-07-01",
+        "note": "Dam completed; first impoundment during monsoon."
+      },
+      {
+        "date": "2024-10-01",
+        "note": "Annual inspection: structure sound."
+      },
+      {
+        "date": "2025-11-14",
+        "note": "Good condition; desilting done."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/e543ba502e/600/400?grayscale",
+        "lat": 21.82,
+        "lng": 80.22,
+        "timestamp": "2023-03-03T06:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/3e2b02f7be/600/400",
+        "lat": 21.82,
+        "lng": 80.22,
+        "timestamp": "2023-08-05T08:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-013",
+    "name": "Wainganga Contour Trenching — Plateau",
+    "watershed_id": "ws-004",
+    "district": "Balaghat",
+    "lat": 21.95,
+    "lng": 80.45,
+    "type": "Contour Trenching",
+    "status": "Ongoing",
+    "completion_pct": 48,
+    "start_date": "2025-08-01",
+    "structure_age_years": 0,
+    "last_inspection_date": "2026-04-05",
+    "inspection_history": [
+      {
+        "date": "2025-09-15",
+        "note": "Trenching 20% complete."
+      },
+      {
+        "date": "2026-04-05",
+        "note": "Progress at 48%; monsoon re-alignment required on north slope."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/19c165679c/600/400?grayscale",
+        "lat": 21.95,
+        "lng": 80.45,
+        "timestamp": "2025-08-02T07:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/1cde2123d6/600/400",
+        "lat": 21.95,
+        "lng": 80.45,
+        "timestamp": "2026-03-01T09:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-014",
+    "name": "Balaghat Farm Pond — Village Lalgaon",
+    "watershed_id": "ws-004",
+    "district": "Balaghat",
+    "lat": 21.75,
+    "lng": 80.38,
+    "type": "Farm Pond",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2022-12-01",
+    "structure_age_years": 3,
+    "last_inspection_date": "2026-01-08",
+    "inspection_history": [
+      {
+        "date": "2023-02-01",
+        "note": "Pond ready; first fill from rains."
+      },
+      {
+        "date": "2024-11-20",
+        "note": "3-year review: lining intact; used for rabi irrigation."
+      },
+      {
+        "date": "2026-01-08",
+        "note": "Excellent condition; community managing well."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/b6d13d6f11/600/400?grayscale",
+        "lat": 21.75,
+        "lng": 80.38,
+        "timestamp": "2022-12-02T06:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/5c781ff0ef/600/400",
+        "lat": 21.75,
+        "lng": 80.38,
+        "timestamp": "2023-03-01T08:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-015",
+    "name": "Wainganga Afforestation — South Ridge",
+    "watershed_id": "ws-004",
+    "district": "Balaghat",
+    "lat": 22.05,
+    "lng": 80.18,
+    "type": "Afforestation",
+    "status": "Completed",
+    "completion_pct": 100,
+    "start_date": "2023-07-01",
+    "structure_age_years": 2,
+    "last_inspection_date": "2025-09-30",
+    "inspection_history": [
+      {
+        "date": "2023-10-01",
+        "note": "4500 saplings planted; survival rate 82%."
+      },
+      {
+        "date": "2024-10-15",
+        "note": "Year 2: canopy closure beginning on southern slope."
+      },
+      {
+        "date": "2025-09-30",
+        "note": "Forest stand established; NDVI improvement observed."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/3fac4c2e40/600/400?grayscale",
+        "lat": 22.05,
+        "lng": 80.18,
+        "timestamp": "2023-07-02T06:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/fdf8106e1f/600/400",
+        "lat": 22.05,
+        "lng": 80.18,
+        "timestamp": "2025-08-01T09:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-016",
+    "name": "Chambal Check Dam — Site B (Ravine)",
+    "watershed_id": "ws-001",
+    "district": "Morena",
+    "lat": 26.68,
+    "lng": 77.98,
+    "type": "Check Dam",
+    "status": "Ongoing",
+    "completion_pct": 83,
+    "start_date": "2025-10-01",
+    "structure_age_years": 0,
+    "last_inspection_date": "2026-07-01",
+    "inspection_history": [
+      {
+        "date": "2025-11-15",
+        "note": "Foundation complete."
+      },
+      {
+        "date": "2026-07-01",
+        "note": "Apron work done; 83% complete. Crest pending."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/c5839e66ea/600/400?grayscale",
+        "lat": 26.68,
+        "lng": 77.98,
+        "timestamp": "2025-10-02T07:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/a550c70246/600/400",
+        "lat": 26.68,
+        "lng": 77.98,
+        "timestamp": "2026-06-15T09:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "proj-017",
+    "name": "Banas Check Dam — Site S2",
+    "watershed_id": "ws-002",
+    "district": "Tonk",
+    "lat": 25.86,
+    "lng": 75.82,
+    "type": "Check Dam",
+    "status": "Delayed",
+    "completion_pct": 11,
+    "start_date": "2026-01-01",
+    "structure_age_years": 0,
+    "last_inspection_date": "2026-03-10",
+    "inspection_history": [
+      {
+        "date": "2026-02-01",
+        "note": "Site clearance done."
+      },
+      {
+        "date": "2026-03-10",
+        "note": "Contractor not mobilised; work pending."
+      }
+    ],
+    "photos": {
+      "before": {
+        "url": "https://picsum.photos/seed/bb4101cb02/600/400?grayscale",
+        "lat": 25.861,
+        "lng": 75.82,
+        "timestamp": "2026-01-02T08:00:00Z"
+      },
+      "after": {
+        "url": "https://picsum.photos/seed/95c04140f1/600/400",
+        "lat": 25.862,
+        "lng": 75.821,
+        "timestamp": "2026-03-01T09:00:00Z"
+      }
+    }
+  }
+]

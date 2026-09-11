@@ -1,0 +1,47 @@
+# render.yaml — Render Blueprint for JalDrishti
+# Defines both the backend Web Service and the frontend Static Site.
+# See: https://render.com/docs/blueprint-spec
+#
+# IMPORTANT: The secrets listed below (JWT_SECRET, EE_SERVICE_ACCOUNT_KEY_JSON,
+# BHOONIDHI_USER, BHOONIDHI_PASS) must be set manually in the Render dashboard
+# under "Environment" for each service. Do NOT put real values here.
+
+services:
+  # ── Backend — Express Web Service ──────────────────────────────────────────
+  - type: web
+    name: jaldrishti-backend
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: JWT_SECRET
+        sync: false          # Must be set manually in Render dashboard
+      - key: EE_SERVICE_ACCOUNT_KEY_JSON
+        sync: false          # Must be set manually in Render dashboard
+      - key: FRONTEND_ORIGIN
+        sync: false          # Set to your frontend URL after deploying frontend
+      - key: BHOONIDHI_USER
+        sync: false          # Optional — set if you have a Bhoonidhi account
+      - key: BHOONIDHI_PASS
+        sync: false          # Optional — set if you have a Bhoonidhi account
+
+  # ── Frontend — React/Vite Static Site ──────────────────────────────────────
+  - type: web
+    name: jaldrishti-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    # React Router SPA: serve index.html for all paths
+    # (also handled by public/_redirects, but the routes block is the
+    # canonical Render approach for Blueprint deployments)
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false          # Must be set to your backend URL before building

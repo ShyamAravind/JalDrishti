@@ -1,0 +1,66 @@
+[
+  {
+    "id": "alert-001",
+    "project_id": "proj-003",
+    "reason": "Inspection overdue",
+    "severity": "high",
+    "days_since_last_inspection": 503,
+    "message": "Chambal Contour Trenching — Zone C: no inspection in 503 days (threshold: 180 days)."
+  },
+  {
+    "id": "alert-002",
+    "project_id": "proj-007",
+    "reason": "Missing recent evidence",
+    "severity": "high",
+    "days_since_last_inspection": 568,
+    "message": "Banas Afforestation — Deoli Block: no geo-verified photo evidence in 568 days. Trust score: 2/5."
+  },
+  {
+    "id": "alert-003",
+    "project_id": "proj-011",
+    "reason": "Spatial risk indicator",
+    "severity": "critical",
+    "days_since_last_inspection": 330,
+    "message": "Dungarpur Farm Pond — Site F3: trust score 1/5. GPS, timestamp, metadata and duplicate checks all failed. Location mismatch: 1240m."
+  },
+  {
+    "id": "alert-004",
+    "project_id": "proj-017",
+    "reason": "Inspection overdue",
+    "severity": "high",
+    "days_since_last_inspection": 169,
+    "message": "Banas Check Dam — Site S2: 11% completion; only 1 inspection in 8 months. Trust score: 2/5."
+  },
+  {
+    "id": "alert-005",
+    "project_id": "proj-005",
+    "reason": "Structure aging",
+    "severity": "medium",
+    "days_since_last_inspection": 369,
+    "message": "Banas Check Dam — Tonk North: structure is 3 years old; crack reported on eastern face. Repair recommended."
+  },
+  {
+    "id": "alert-006",
+    "project_id": "proj-016",
+    "reason": "Missing recent evidence",
+    "severity": "medium",
+    "days_since_last_inspection": 56,
+    "message": "Chambal Check Dam — Site B: timestamp and duplicate checks failed. Evidence reliability uncertain."
+  },
+  {
+    "id": "alert-007",
+    "project_id": "proj-008",
+    "reason": "Inspection overdue",
+    "severity": "low",
+    "days_since_last_inspection": 197,
+    "message": "Tonk Contour Trenching — East Slope: sediment trap full; desiltation overdue per last inspection note."
+  },
+  {
+    "id": "alert-008",
+    "project_id": "proj-014",
+    "reason": "Structure aging",
+    "severity": "low",
+    "days_since_last_inspection": 230,
+    "message": "Balaghat Farm Pond — Village Lalgaon: 3-year-old structure; next scheduled structural review approaching."
+  }
+]
