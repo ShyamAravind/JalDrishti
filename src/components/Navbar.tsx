@@ -35,6 +35,7 @@ const districtOfficerNavItems = [
 const fieldOfficerNavItems = [
   { to: '/', label: 'Dashboard', Icon: LayoutDashboard },
   { to: '/submit-evidence', label: 'Submit Evidence', Icon: ScanLine },
+  { to: '/my-submissions', label: 'My Submissions', Icon: Award },
 ];
 
 const Navbar: React.FC = () => {

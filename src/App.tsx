@@ -13,6 +13,7 @@ import GeoImageIntel from './pages/GeoImageIntel';
 import InterventionAssessmentPage from './pages/InterventionAssessment';
 import FieldOfficerDashboard from './pages/FieldOfficerDashboard';
 import FieldEvidenceSubmission from './pages/FieldEvidenceSubmission';
+import MySubmissions from './pages/MySubmissions';
 import Login from './pages/Login';
 import Chatbot from './components/Chatbot';
 import { useAuthStore } from './store/authStore';
@@ -52,6 +53,7 @@ const App: React.FC = () => {
                         <Routes>
               <Route path="/" element={<FieldOfficerDashboard />} />
               <Route path="/submit-evidence" element={<FieldEvidenceSubmission />} />
+              <Route path="/my-submissions" element={<MySubmissions />} />
               <Route path="*" element={<FieldOfficerDashboard />} />
             </Routes>
           ) : (

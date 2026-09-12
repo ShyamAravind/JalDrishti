@@ -32,17 +32,20 @@ const FieldOfficerDashboard: React.FC = () => {
         </div>
       </Link>
 
-      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4">
+            <Link
+        to="/my-submissions"
+        className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4 hover:border-primary-300 transition-colors"
+      >
         <div className="w-10 h-10 rounded-full bg-secondary-100 flex items-center justify-center flex-shrink-0">
           <ClipboardList className="w-5 h-5 text-secondary-600" />
         </div>
         <div>
-          <h2 className="text-sm font-bold text-text-dark">Assigned Tasks</h2>
+          <h2 className="text-sm font-bold text-text-dark">My Submissions</h2>
           <p className="text-xs text-gray-500 mt-1">
-            Task assignments will appear here in a later phase.
+            View your submission history and trust scores.
           </p>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
