@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import exifr from 'exifr';
-import { Camera, MapPin, RefreshCw, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Camera, MapPin, RefreshCw, AlertTriangle, CheckCircle2, XCircle, AlertCircle, ShieldCheck } from 'lucide-react';
 import { getProjects } from '../services/projectService';
+import { getWatersheds } from '../services/watershedService';
+import { evaluateFieldEvidence } from '../utils/evidenceValidationEngine';
 import { useAuthStore } from '../store/authStore';
-import type { Project } from '../types';
+import type { Project, WatershedFeature, EvidenceValidationResult } from '../types';
 
 const INSPECTION_TYPES = [
   'Structure Inspection',
@@ -23,6 +25,7 @@ const FieldEvidenceSubmission: React.FC = () => {
   const officer = useAuthStore(s => s.officer);
 
   const [projects, setProjects] = useState<Project[]>([]);
+  const [watersheds, setWatersheds] = useState<WatershedFeature[]>([]);
   const [projectId, setProjectId] = useState('');
   const [inspectionType, setInspectionType] = useState<string>(INSPECTION_TYPES[0]);
   const [observation, setObservation] = useState('');
@@ -32,6 +35,7 @@ const FieldEvidenceSubmission: React.FC = () => {
   const [exifStatus, setExifStatus] = useState<'idle' | 'reading' | 'found' | 'not-found' | 'error'>('idle');
 
   const [submitted, setSubmitted] = useState(false);
+  const [validation, setValidation] = useState<EvidenceValidationResult | null>(null);
 
   useEffect(() => {
     getProjects().then(all => {
@@ -43,6 +47,7 @@ const FieldEvidenceSubmission: React.FC = () => {
       setProjects(scoped);
       if (scoped.length > 0) setProjectId(scoped[0].id);
     });
+    getWatersheds().then(setWatersheds);
   }, [officer]);
 
   const handlePhoto = useCallback(async (file: File) => {
@@ -73,37 +78,87 @@ const FieldEvidenceSubmission: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Phase 2b: form + real EXIF extraction only. Trust-score computation
-    // and actual persistence are separate phases (2c, 2d) — this
-    // deliberately does not save anything yet.
+    if (!location) return;
+
+    // Real, computed trust score — same evidenceValidationEngine used by
+    // Geo Image Intel, run on this exact submission's real GPS coordinates,
+    // timestamp, and selected project. No satellite call here (kept out
+    // deliberately to keep this flow fast) — the engine gives honest
+    // partial credit for that, it doesn't fail or fabricate a result.
+    const result = evaluateFieldEvidence({
+      lat: location.lat,
+      lng: location.lng,
+      source: 'EXIF Metadata',
+      timestamp: location.date ? `${location.date} ${location.time || ''}` : undefined,
+      watersheds,
+      projects,
+      targetProjectId: projectId,
+    });
+    setValidation(result);
+
+    // Phase 2c: real trust score computed and shown below. Actual
+    // persistence (saving this submission so it appears in "My
+    // Submissions" and the District Officer's inbox) is Phase 2d — this
+    // still does not save anything yet.
     setSubmitted(true);
   };
-
   const canSubmit = projectId && location && observation.trim().length > 0;
 
-  if (submitted) {
+  if (submitted && validation) {
     return (
-      <div className="p-6 max-w-xl mx-auto">
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 text-center space-y-3">
-          <CheckCircle2 className="w-10 h-10 text-tertiary-600 mx-auto" />
-          <h1 className="text-lg font-bold text-text-dark">Form captured successfully</h1>
-          <p className="text-sm text-gray-500">
-            This phase only confirms the form and EXIF extraction work end-to-end —
-            trust-score computation and saving this submission come in the next phase.
+      <div className="p-6 max-w-xl mx-auto space-y-4">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-4">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-primary-600" />
+              <h1 className="text-sm font-bold text-text-dark">Geo Evidence Trust Score</h1>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-text-dark">{validation.trustScore}<span className="text-xs text-gray-400 font-normal">/100</span></span>
+              <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                validation.confidenceLevel === 'High' ? 'bg-emerald-100 text-emerald-800' :
+                validation.confidenceLevel === 'Medium' ? 'bg-blue-100 text-blue-800' :
+                'bg-rose-100 text-rose-800'
+              }`}>
+                {validation.confidenceLevel} Confidence
+              </span>
+            </div>
+          </div>
+
+          <p className="text-xs text-gray-500">{validation.summary}</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {validation.checks.map(chk => (
+              <div key={chk.id} className="border border-gray-100 bg-gray-50/70 rounded p-2.5 flex items-start gap-2 text-xs">
+                {chk.status === 'pass' && <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />}
+                {chk.status === 'warn' && <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />}
+                {chk.status === 'fail' && <XCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />}
+                <div>
+                  <span className="font-bold text-text-dark block">{chk.label}</span>
+                  <span className="text-[11px] text-gray-500">{chk.detail}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-[10px] text-gray-400 pt-2 border-t border-gray-100">
+            This submission is not yet saved — persistence and appearing in "My Submissions" is a later phase.
           </p>
-          <button
-            onClick={() => {
-              setSubmitted(false);
-              setImageUrl(null);
-              setLocation(null);
-              setExifStatus('idle');
-              setObservation('');
-            }}
-            className="mt-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-sm font-semibold"
-          >
-            Submit Another
-          </button>
         </div>
+
+        <button
+          onClick={() => {
+            setSubmitted(false);
+            setValidation(null);
+            setImageUrl(null);
+            setLocation(null);
+            setExifStatus('idle');
+            setObservation('');
+          }}
+          className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-sm font-semibold"
+        >
+          Submit Another
+        </button>
       </div>
     );
   }
