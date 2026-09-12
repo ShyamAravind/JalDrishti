@@ -772,21 +772,25 @@ export class GoogleEarthEngineProvider extends SatelliteDataProvider {
 
     await this.ensureInitialised();
 
-    const roi = ee.Geometry.Rectangle([bounds.lngMin, bounds.latMin, bounds.lngMax, bounds.latMax]);
+        const roi = ee.Geometry.Rectangle([bounds.lngMin, bounds.latMin, bounds.lngMax, bounds.latMax]);
     const CHANNEL_THRESHOLD_CELLS = 500;
 
-    const flowAcc = ee.Image('WWF/HydroSHEDS/03ACC').select('b1').clip(roi);
+    // HydroSHEDS only publishes flow accumulation at 15 and 30 arc-second
+    // resolutions — there is no 3 arc-second accumulation product (that
+    // resolution only exists for elevation/drainage-direction). 15ACC
+    // (~450m) is the finest one actually available.
+    const flowAcc = ee.Image('WWF/HydroSHEDS/15ACC').select('b1').clip(roi);
     const channelMask = flowAcc.gt(CHANNEL_THRESHOLD_CELLS).rename('channel');
 
     const channelStats = channelMask.reduceRegion({
-      reducer: ee.Reducer.mean(), geometry: roi, scale: 90, maxPixels: 1e9,
+      reducer: ee.Reducer.mean(), geometry: roi, scale: 450, maxPixels: 1e9,
     });
     const maxAccStats = flowAcc.reduceRegion({
-      reducer: ee.Reducer.max(), geometry: roi, scale: 90, maxPixels: 1e9,
+      reducer: ee.Reducer.max(), geometry: roi, scale: 450, maxPixels: 1e9,
     });
     const channelLengthImg = channelMask.multiply(ee.Image.pixelArea().sqrt());
     const channelLengthStats = channelLengthImg.reduceRegion({
-      reducer: ee.Reducer.sum(), geometry: roi, scale: 90, maxPixels: 1e9,
+      reducer: ee.Reducer.sum(), geometry: roi, scale: 450, maxPixels: 1e9,
     });
 
     return new Promise((resolve, reject) => {
@@ -808,7 +812,7 @@ export class GoogleEarthEngineProvider extends SatelliteDataProvider {
               methodology: 'WWF HydroSHEDS flow accumulation (SRTM-derived, ~90m resolution). A cell is treated as channel network once upstream contributing area exceeds a fixed threshold — a standard technique, but this threshold is a prototype simplification, not regionally calibrated.',
               source: 'live',
               provider: 'Google Earth Engine',
-              dataset: 'WWF HydroSHEDS Flow Accumulation, 3 arc-second (~90m)',
+                            dataset: 'WWF HydroSHEDS Flow Accumulation, 15 arc-second (~450m)',
               computed_at: new Date().toISOString(),
             };
 
