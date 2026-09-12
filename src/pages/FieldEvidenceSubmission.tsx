@@ -4,6 +4,7 @@ import { Camera, MapPin, RefreshCw, AlertTriangle, CheckCircle2, XCircle, AlertC
 import { getProjects } from '../services/projectService';
 import { getWatersheds } from '../services/watershedService';
 import { evaluateFieldEvidence } from '../utils/evidenceValidationEngine';
+import { submitFieldEvidence } from '../services/fieldEvidenceService';
 import { useAuthStore } from '../store/authStore';
 import type { Project, WatershedFeature, EvidenceValidationResult } from '../types';
 
@@ -36,6 +37,8 @@ const FieldEvidenceSubmission: React.FC = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [validation, setValidation] = useState<EvidenceValidationResult | null>(null);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     getProjects().then(all => {
@@ -76,9 +79,9 @@ const FieldEvidenceSubmission: React.FC = () => {
     if (file) handlePhoto(file);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!location) return;
+    if (!location || !officer) return;
 
     // Real, computed trust score — same evidenceValidationEngine used by
     // Geo Image Intel, run on this exact submission's real GPS coordinates,
@@ -95,12 +98,28 @@ const FieldEvidenceSubmission: React.FC = () => {
       targetProjectId: projectId,
     });
     setValidation(result);
-
-    // Phase 2c: real trust score computed and shown below. Actual
-    // persistence (saving this submission so it appears in "My
-    // Submissions" and the District Officer's inbox) is Phase 2d — this
-    // still does not save anything yet.
     setSubmitted(true);
+
+    const project = projects.find(p => p.id === projectId);
+    setSaveStatus('saving');
+    const outcome = await submitFieldEvidence({
+      officerId: officer.id,
+      officerName: officer.name,
+      district: officer.district,
+      projectId,
+      projectName: project?.name || 'Unknown',
+      inspectionType,
+      observation,
+      lat: location.lat,
+      lng: location.lng,
+      capturedDate: location.date,
+      capturedTime: location.time,
+      trustScore: result.trustScore,
+      confidenceLevel: result.confidenceLevel,
+      checks: result.checks,
+    });
+    setSaveStatus(outcome.ok ? 'saved' : 'error');
+    if (!outcome.ok) setSaveError(outcome.error);
   };
   const canSubmit = projectId && location && observation.trim().length > 0;
 
@@ -141,9 +160,23 @@ const FieldEvidenceSubmission: React.FC = () => {
             ))}
           </div>
 
-          <p className="text-[10px] text-gray-400 pt-2 border-t border-gray-100">
-            This submission is not yet saved — persistence and appearing in "My Submissions" is a later phase.
-          </p>
+                    <div className="pt-2 border-t border-gray-100">
+            {saveStatus === 'saving' && (
+              <p className="text-[11px] text-gray-400 flex items-center gap-1.5">
+                <RefreshCw className="w-3 h-3 animate-spin" /> Saving submission...
+              </p>
+            )}
+            {saveStatus === 'saved' && (
+              <p className="text-[11px] text-emerald-700 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3 h-3" /> Submission saved.
+              </p>
+            )}
+            {saveStatus === 'error' && (
+              <p className="text-[11px] text-rose-700">
+                Could not save this submission{saveError ? `: ${saveError}` : '.'}
+              </p>
+            )}
+          </div>
         </div>
 
         <button

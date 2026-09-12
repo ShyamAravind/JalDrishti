@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import bhoonidhiRouter from './routes/bhoonidhi.js';
 import authRouter from './routes/auth.js';
 import earthEngineRouter from './routes/earthEngine.js';
+import fieldEvidenceRouter from './routes/fieldEvidence.js';
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.get('/api/status', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/satellite', bhoonidhiRouter);
 app.use('/api/earth-engine', earthEngineRouter);
+app.use('/api/field-evidence', fieldEvidenceRouter);
 
 app.listen(PORT, HOST, () => {
   console.log(`JalDrishti backend running on http://${HOST}:${PORT}`);
