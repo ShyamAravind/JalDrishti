@@ -66,8 +66,8 @@ const FieldOfficerDashboard: React.FC = () => {
                   <p className="text-[11px] text-gray-400 mt-0.5">Due: {task.dueLabel}</p>
                 </div>
               </div>
-              <Link
-                to="/submit-evidence"
+                            <Link
+                to={`/submit-evidence?projectId=${task.projectId}`}
                 className="bg-primary-600 hover:bg-primary-700 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-sm whitespace-nowrap"
               >
                 Submit Inspection

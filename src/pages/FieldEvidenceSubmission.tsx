@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import exifr from 'exifr';
 import { Camera, MapPin, RefreshCw, AlertTriangle, CheckCircle2, XCircle, AlertCircle, ShieldCheck } from 'lucide-react';
 import { getProjects } from '../services/projectService';
@@ -24,7 +25,9 @@ interface ExtractedLocation {
 
 const FieldEvidenceSubmission: React.FC = () => {
   const officer = useAuthStore(s => s.officer);
-
+  const [searchParams] = useSearchParams();
+  const requestedProjectId = searchParams.get('projectId');
+  
   const [projects, setProjects] = useState<Project[]>([]);
   const [watersheds, setWatersheds] = useState<WatershedFeature[]>([]);
   const [projectId, setProjectId] = useState('');
@@ -40,7 +43,7 @@ const FieldEvidenceSubmission: React.FC = () => {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [saveError, setSaveError] = useState<string | null>(null);
 
-  useEffect(() => {
+   useEffect(() => {
     getProjects().then(all => {
       // Field Officer only sees projects in their own district — same
       // scoping principle used everywhere else in this app.
@@ -48,10 +51,18 @@ const FieldEvidenceSubmission: React.FC = () => {
         ? all.filter(p => p.district === officer.district)
         : all;
       setProjects(scoped);
-      if (scoped.length > 0) setProjectId(scoped[0].id);
+
+      // If we arrived here from a specific task ("Submit Inspection" on
+      // the dashboard), pre-select that exact project instead of
+      // defaulting to whichever one happens to be first in the list.
+      if (requestedProjectId && scoped.some(p => p.id === requestedProjectId)) {
+        setProjectId(requestedProjectId);
+      } else if (scoped.length > 0) {
+        setProjectId(scoped[0].id);
+      }
     });
     getWatersheds().then(setWatersheds);
-  }, [officer]);
+  }, [officer, requestedProjectId]);
 
   const handlePhoto = useCallback(async (file: File) => {
     setImageUrl(URL.createObjectURL(file));
