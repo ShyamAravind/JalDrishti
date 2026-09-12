@@ -1,10 +1,16 @@
-import React from 'react';
-import { Camera, ClipboardList } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Camera, ClipboardList, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import { getAssignedTasks, type FieldTask } from '../services/fieldTaskService';
 
 const FieldOfficerDashboard: React.FC = () => {
   const officer = useAuthStore(s => s.officer);
+  const [tasks, setTasks] = useState<FieldTask[]>([]);
+
+  useEffect(() => {
+    if (officer) getAssignedTasks(officer.id).then(setTasks);
+  }, [officer]);
 
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-6">
@@ -32,7 +38,7 @@ const FieldOfficerDashboard: React.FC = () => {
         </div>
       </Link>
 
-            <Link
+      <Link
         to="/my-submissions"
         className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4 hover:border-primary-300 transition-colors"
       >
@@ -46,6 +52,30 @@ const FieldOfficerDashboard: React.FC = () => {
           </p>
         </div>
       </Link>
+
+      {tasks.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-sm font-bold text-text-dark">Today's Field Tasks</h2>
+          {tasks.map(task => (
+            <div key={task.id} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 flex items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <AlertCircle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${task.priority === 'high' ? 'text-rose-500' : 'text-amber-500'}`} />
+                <div>
+                  <p className="text-sm font-semibold text-text-dark">{task.projectName}</p>
+                  <p className="text-xs text-gray-500">{task.description}</p>
+                  <p className="text-[11px] text-gray-400 mt-0.5">Due: {task.dueLabel}</p>
+                </div>
+              </div>
+              <Link
+                to="/submit-evidence"
+                className="bg-primary-600 hover:bg-primary-700 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-sm whitespace-nowrap"
+              >
+                Submit Inspection
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
