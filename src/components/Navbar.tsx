@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 
-const navItems = [
+const districtOfficerNavItems = [
   { to: '/',           label: 'Dashboard',  Icon: LayoutDashboard },
   { to: '/map',        label: 'Map View',   Icon: Map },
   { to: '/analysis',   label: 'Analysis',   Icon: BarChart3 },
@@ -29,10 +29,18 @@ const navItems = [
   { to: '/reports',    label: 'Reports',    Icon: FileText },
 ];
 
+// Field Officer gets a deliberately short nav — just their own pages,
+// no GIS/analytics tooling. Expands in later phases (Submit Evidence,
+// My Submissions, Assigned Tasks).
+const fieldOfficerNavItems = [
+  { to: '/', label: 'Dashboard', Icon: LayoutDashboard },
+];
+
 const Navbar: React.FC = () => {
   const officer = useAuthStore(s => s.officer);
   const authMode = useAuthStore(s => s.authMode);
   const logout = useAuthStore(s => s.logout);
+  const navItems = officer?.isFieldOfficer ? fieldOfficerNavItems : districtOfficerNavItems;
 
   return (
     <header className="bg-primary-600 text-white shadow-lg print:hidden z-50 relative">

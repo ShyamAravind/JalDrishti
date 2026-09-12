@@ -11,6 +11,7 @@ import ReportsPage from './pages/Reports';
 import ProjectDetailPage from './pages/ProjectDetail';
 import GeoImageIntel from './pages/GeoImageIntel';
 import InterventionAssessmentPage from './pages/InterventionAssessment';
+import FieldOfficerDashboard from './pages/FieldOfficerDashboard';
 import Login from './pages/Login';
 import Chatbot from './components/Chatbot';
 import { useAuthStore } from './store/authStore';
@@ -44,19 +45,28 @@ const App: React.FC = () => {
 
         {/* Page Content */}
         <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/map" element={<MapPage />} />
-            <Route path="/analysis" element={<SpatialAnalysis />} />
-            <Route path="/simulator" element={<WhatIfSimulator />} />
-            <Route path="/simulation" element={<ImpactSimulation />} />
-            <Route path="/alerts" element={<AlertsPage />} />
-            <Route path="/reports" element={<ReportsPage />} />
-            <Route path="/project/:id" element={<ProjectDetailPage />} />
-            <Route path="/geo-intel" element={<GeoImageIntel />} />
-            <Route path="/interventions" element={<InterventionAssessmentPage />} />
-            <Route path="*" element={<Dashboard />} />
-          </Routes>
+          {officer.isFieldOfficer ? (
+            // Field Officer: deliberately restricted to their own simple
+            // pages — no GIS/analytics tooling. See officers.ts.
+            <Routes>
+              <Route path="/" element={<FieldOfficerDashboard />} />
+              <Route path="*" element={<FieldOfficerDashboard />} />
+            </Routes>
+          ) : (
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/map" element={<MapPage />} />
+              <Route path="/analysis" element={<SpatialAnalysis />} />
+              <Route path="/simulator" element={<WhatIfSimulator />} />
+              <Route path="/simulation" element={<ImpactSimulation />} />
+              <Route path="/alerts" element={<AlertsPage />} />
+              <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/project/:id" element={<ProjectDetailPage />} />
+              <Route path="/geo-intel" element={<GeoImageIntel />} />
+              <Route path="/interventions" element={<InterventionAssessmentPage />} />
+              <Route path="*" element={<Dashboard />} />
+            </Routes>
+          )}
         </main>
         <Chatbot />
       </div>

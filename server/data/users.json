@@ -3,5 +3,10 @@
     "username": "patel",
     "officerId": "dungarpur",
     "passwordHash": "$2b$10$oNUkCAcaQVivkxVSYOxk7O3mY4NHWHyRAgdOog1LlpLUoLGPd.Jou"
+  },
+  {
+    "username": "ravi",
+    "officerId": "ravi-field",
+    "passwordHash": "$2b$10$nn/V35VY4Obj0XH6T.4X.uKP52/eoBIVxFCEnuobui2ReOdOW.Joa"
   }
 ]

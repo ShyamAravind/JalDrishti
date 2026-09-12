@@ -15,16 +15,29 @@ const Login: React.FC = () => {
   const login = useAuthStore(s => s.login);
   const loginStatus = useAuthStore(s => s.loginStatus);
 
-  // Pre-filled for the SIH demo so a judge can log in with one click —
+   // Pre-filled for the SIH demo so a judge can log in with one click —
   // the backend still verifies these credentials for real (bcrypt +
   // JWT); pre-filling the fields does not bypass that check.
-  const [username, setUsername] = useState('patel');
-  const [password, setPassword] = useState('Patel@123');
+  const DEMO_ACCOUNTS = [
+    { label: 'District Officer (Officer K. Patel)', username: 'patel', password: 'Patel@123' },
+    { label: 'Field Officer (Ravi Kumar)', username: 'ravi', password: 'Ravi@123' },
+  ];
+  const [selectedAccountIdx, setSelectedAccountIdx] = useState(0);
+  const [username, setUsername] = useState(DEMO_ACCOUNTS[0].username);
+  const [password, setPassword] = useState(DEMO_ACCOUNTS[0].password);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleAccountSelect = (idx: number) => {
+    setSelectedAccountIdx(idx);
+    setUsername(DEMO_ACCOUNTS[idx].username);
+    setPassword(DEMO_ACCOUNTS[idx].password);
+    setError(null);
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {  
+ 
     e.preventDefault();
 
     setError(null);
@@ -106,7 +119,27 @@ const Login: React.FC = () => {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4">
+                    <form onSubmit={handleLogin} className="space-y-4">
+
+            <div>
+              <label
+                htmlFor="role-select"
+                className="block text-xs font-semibold text-gray-700 mb-1.5"
+              >
+                Sign in as
+              </label>
+              <select
+                id="role-select"
+                value={selectedAccountIdx}
+                onChange={(e) => handleAccountSelect(Number(e.target.value))}
+                disabled={loading}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100 disabled:bg-gray-100 bg-white"
+              >
+                {DEMO_ACCOUNTS.map((acc, idx) => (
+                  <option key={acc.username} value={idx}>{acc.label}</option>
+                ))}
+              </select>
+            </div>
 
             <div>
               <label
