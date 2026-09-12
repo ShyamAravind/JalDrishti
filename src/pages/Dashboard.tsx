@@ -19,6 +19,7 @@ import {
   getGeoEvidence,
   computeAverageTrustScore,
 } from '../services/evidenceService';
+import { getSatelliteStatus } from '../services/satelliteService';
 
 import { useAuthStore } from '../store/authStore';
 import { useFilterStore } from '../store/filterStore';
@@ -28,6 +29,7 @@ import type {
   MaintenanceAlert,
   GeoEvidence,
   WatershedFeature,
+  SatelliteStatusResponse,
 } from '../types';
 
 const Dashboard: React.FC = () => {
@@ -39,10 +41,15 @@ const Dashboard: React.FC = () => {
   const watershedId = useFilterStore(s => s.watershedId);
   const setWatershedId = useFilterStore(s => s.setWatershedId);
 
-  const [rawProjects, setRawProjects] = useState<Project[]>([]);
+    const [rawProjects, setRawProjects] = useState<Project[]>([]);
   const [rawWatersheds, setRawWatersheds] = useState<WatershedFeature[]>([]);
   const [alerts, setAlerts] = useState<MaintenanceAlert[]>([]);
   const [evidence, setEvidence] = useState<GeoEvidence[]>([]);
+  const [providerStatus, setProviderStatus] = useState<SatelliteStatusResponse | null>(null);
+
+  useEffect(() => {
+    getSatelliteStatus().then(setProviderStatus);
+  }, []);
 
   useEffect(() => {
     Promise.all([
@@ -261,7 +268,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Provider Status Callout */}
+            {/* Provider Status Callout */}
       <div className="bg-white border border-gray-200 rounded-lg p-3.5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
 
         <div className="flex items-center gap-2">
@@ -269,9 +276,15 @@ const Dashboard: React.FC = () => {
             Satellite Engine:
           </span>
 
-          <span className="bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
-            Google Earth Engine (Live Sentinel-1 SAR &amp; Landsat)
-          </span>
+          {providerStatus?.providers.earthEngine.configured ? (
+            <span className="bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
+              Google Earth Engine (Live Sentinel-1 SAR &amp; Landsat)
+            </span>
+          ) : (
+            <span className="bg-gray-100 text-gray-600 font-semibold px-2 py-0.5 rounded-full">
+              Google Earth Engine ({providerStatus ? 'Not Configured' : 'Status Unknown'})
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-2">
@@ -280,7 +293,7 @@ const Dashboard: React.FC = () => {
           </span>
 
           <span className="bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded-full">
-            Integration Ready (Provider Adapter Online)
+            {providerStatus?.providers.srishtiDrishti.configured ? 'Connected' : 'Integration Ready (Provider Adapter Online)'}
           </span>
         </div>
       </div>

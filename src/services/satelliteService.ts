@@ -3,6 +3,8 @@ import type {
   Sentinel1SoilMoistureResult,
   TemporalChangeResult,
   LandDegradationResult,
+  WaterBodiesResult,
+  DrainageResult,
 } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
@@ -78,6 +80,43 @@ export async function getLandDegradation(
 ): Promise<{ ok: true; data: LandDegradationResult } | { ok: false; error: string }> {
   try {
     const res = await fetch(`${API_BASE}/api/earth-engine/land-degradation/${watershedId}?year=${year}`);
+    const data = await res.json();
+    if (!res.ok) {
+      return { ok: false, error: data.message || `Server error (${res.status})` };
+    }
+    return { ok: true, data };
+  } catch (err) {
+    return {
+      ok: false,
+      error: 'Cannot reach backend server. Ensure backend is running.',
+    };
+  }
+}
+
+export async function getWaterBodies(
+  watershedId: string,
+  year: number = new Date().getFullYear()
+): Promise<{ ok: true; data: WaterBodiesResult } | { ok: false; error: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/api/earth-engine/water-bodies/${watershedId}?year=${year}`);
+    const data = await res.json();
+    if (!res.ok) {
+      return { ok: false, error: data.message || `Server error (${res.status})` };
+    }
+    return { ok: true, data };
+  } catch (err) {
+    return {
+      ok: false,
+      error: 'Cannot reach backend server. Ensure backend is running.',
+    };
+  }
+}
+
+export async function getDrainage(
+  watershedId: string
+): Promise<{ ok: true; data: DrainageResult } | { ok: false; error: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/api/earth-engine/drainage/${watershedId}`);
     const data = await res.json();
     if (!res.ok) {
       return { ok: false, error: data.message || `Server error (${res.status})` };

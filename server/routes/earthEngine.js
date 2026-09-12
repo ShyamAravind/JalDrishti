@@ -169,6 +169,60 @@ router.get('/land-degradation/:watershedId', async (req, res) => {
   }
 });
 
+// ── GET /api/earth-engine/water-bodies/:watershedId ───────────────────────────
+router.get('/water-bodies/:watershedId', async (req, res) => {
+  if (!geeProvider.isConfigured()) {
+    return res.status(503).json({
+      error: 'not_configured',
+      message: 'Earth Engine credentials are not configured.',
+    });
+  }
+
+  const { watershedId } = req.params;
+  if (!WATERSHED_BOUNDS[watershedId]) {
+    return res.status(400).json({
+      error: 'invalid_watershed',
+      message: `Unknown watershed ID "${watershedId}".`,
+    });
+  }
+
+  const year = Number(req.query.year || new Date().getFullYear());
+
+  try {
+    const result = await geeProvider.computeWaterBodies(watershedId, year);
+    res.json(result);
+  } catch (err) {
+    console.error('[Earth Engine] Water Bodies Error:', err.message);
+    res.status(500).json({ error: 'water_bodies_failed', message: err.message });
+  }
+});
+
+// ── GET /api/earth-engine/drainage/:watershedId ────────────────────────────────
+router.get('/drainage/:watershedId', async (req, res) => {
+  if (!geeProvider.isConfigured()) {
+    return res.status(503).json({
+      error: 'not_configured',
+      message: 'Earth Engine credentials are not configured.',
+    });
+  }
+
+  const { watershedId } = req.params;
+  if (!WATERSHED_BOUNDS[watershedId]) {
+    return res.status(400).json({
+      error: 'invalid_watershed',
+      message: `Unknown watershed ID "${watershedId}".`,
+    });
+  }
+
+  try {
+    const result = await geeProvider.computeDrainage(watershedId);
+    res.json(result);
+  } catch (err) {
+    console.error('[Earth Engine] Drainage Error:', err.message);
+    res.status(500).json({ error: 'drainage_failed', message: err.message });
+  }
+});
+
 // ── GET /api/earth-engine/point-analysis ──────────────────────────────────────
 router.get('/point-analysis', async (req, res) => {
   if (!geeProvider.isConfigured()) {

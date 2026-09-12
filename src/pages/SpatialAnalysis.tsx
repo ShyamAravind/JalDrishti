@@ -2,19 +2,23 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { getWatersheds } from '../services/watershedService';
 import { getLulcTrendByWatershed } from '../services/gisService';
 import {
-  
+  getSatelliteStatus,
   getSentinel1SoilMoisture,
   getTemporalChange,
   getLandDegradation,
+  getWaterBodies,
+  getDrainage,
 } from '../services/satelliteService';
 import LulcTrendChart from '../components/LulcTrendChart';
 import type {
   WatershedFeature,
   LulcTrendEntry,
-  
+  SatelliteStatusResponse,
   Sentinel1SoilMoistureResult,
   TemporalChangeResult,
   LandDegradationResult,
+  WaterBodiesResult,
+  DrainageResult,
 } from '../types';
 import {
   TrendingUp, TrendingDown, Satellite, Loader2, AlertTriangle,
@@ -44,8 +48,12 @@ interface LiveLulcResult {
 const SpatialAnalysis: React.FC = () => {
   const [watersheds, setWatersheds] = useState<WatershedFeature[]>([]);
   const [selectedWsId, setSelectedWsId] = useState<string>('');
-  const [trendData, setTrendData] = useState<LulcTrendEntry | null>(null);
-  
+    const [trendData, setTrendData] = useState<LulcTrendEntry | null>(null);
+  const [providerStatus, setProviderStatus] = useState<SatelliteStatusResponse | null>(null);
+
+  useEffect(() => {
+    getSatelliteStatus().then(setProviderStatus);
+  }, []);
 
   // ── Live Earth Engine LULC state ──────────────────────────────────────────
   const [liveResult, setLiveResult] = useState<LiveLulcResult | null>(null);
@@ -72,6 +80,14 @@ const SpatialAnalysis: React.FC = () => {
   const [degradationResult, setDegradationResult] = useState<LandDegradationResult | null>(null);
   const [degLoading, setDegLoading] = useState(false);
   const [degError, setDegError] = useState<string | null>(null);
+
+  // ── Water Bodies & Drainage state ─────────────────────────────────────────
+  const [waterResult, setWaterResult] = useState<WaterBodiesResult | null>(null);
+  const [waterLoading, setWaterLoading] = useState(false);
+  const [waterError, setWaterError] = useState<string | null>(null);
+  const [drainageResult, setDrainageResult] = useState<DrainageResult | null>(null);
+  const [drainageLoading, setDrainageLoading] = useState(false);
+  const [drainageError, setDrainageError] = useState<string | null>(null);
 
   useEffect(() => {
     getWatersheds().then(ws => {
@@ -170,6 +186,34 @@ const SpatialAnalysis: React.FC = () => {
     }
   }, [selectedWsId, degLoading]);
 
+  // Compute Water Bodies (NDWI/MNDWI)
+  const handleComputeWater = useCallback(async () => {
+    if (!selectedWsId || waterLoading) return;
+    setWaterLoading(true);
+    setWaterError(null);
+    const outcome = await getWaterBodies(selectedWsId, new Date().getFullYear());
+    setWaterLoading(false);
+    if (outcome.ok) {
+      setWaterResult(outcome.data);
+    } else {
+      setWaterError(outcome.error);
+    }
+  }, [selectedWsId, waterLoading]);
+
+  // Compute Drainage (HydroSHEDS flow accumulation)
+  const handleComputeDrainage = useCallback(async () => {
+    if (!selectedWsId || drainageLoading) return;
+    setDrainageLoading(true);
+    setDrainageError(null);
+    const outcome = await getDrainage(selectedWsId);
+    setDrainageLoading(false);
+    if (outcome.ok) {
+      setDrainageResult(outcome.data);
+    } else {
+      setDrainageError(outcome.error);
+    }
+  }, [selectedWsId, drainageLoading]);
+
   // Derived metrics for static trend chart
   const metrics = useMemo(() => {
     if (!trendData || trendData.years.length === 0) return null;
@@ -237,12 +281,20 @@ const SpatialAnalysis: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-text-dark">Active Provider: Google Earth Engine</span>
-              <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
-                LIVE OPERATIONAL
-              </span>
+              {providerStatus?.providers.earthEngine.configured ? (
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
+                  LIVE OPERATIONAL
+                </span>
+              ) : (
+                <span className="text-[10px] bg-gray-100 text-gray-600 font-semibold px-2 py-0.5 rounded-full">
+                  {providerStatus ? 'NOT CONFIGURED' : 'STATUS UNKNOWN'}
+                </span>
+              )}
             </div>
             <p className="text-[11px] text-gray-500 mt-0.5">
-              Live processing: Landsat 8/9 Surface Reflectance (30m) &amp; Sentinel-1 C-band SAR GRD IW (10m).
+              {providerStatus?.providers.earthEngine.configured
+                ? 'Live processing: Landsat 8/9 Surface Reflectance (30m) & Sentinel-1 C-band SAR GRD IW (10m).'
+                : 'Earth Engine credentials are not set on the backend — live computation is unavailable until configured.'}
             </p>
           </div>
         </div>
@@ -253,7 +305,7 @@ const SpatialAnalysis: React.FC = () => {
             <div className="flex items-center gap-1.5">
               <span className="text-xs font-semibold text-gray-700">SRISHTI-DRISHTI Provider:</span>
               <span className="text-[10px] bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded-full">
-                INTEGRATION READY
+                {providerStatus?.providers.srishtiDrishti.configured ? 'CONFIGURED' : 'INTEGRATION READY'}
               </span>
             </div>
             <p className="text-[10px] text-gray-400">
@@ -618,11 +670,94 @@ const SpatialAnalysis: React.FC = () => {
           </div>
         )}
 
-        {degError && (
+                {degError && (
           <div className="bg-rose-50 border border-rose-200 rounded p-3 text-xs text-rose-700">
             {degError}
           </div>
         )}
+      </div>
+
+      {/* ── SECTION 3B: LIVE WATER BODIES (NDWI/MNDWI) & DRAINAGE (HydroSHEDS) ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-4">
+          <div className="flex items-center justify-between gap-3 border-b border-gray-100 pb-3">
+            <div>
+              <h2 className="text-sm font-bold text-text-dark uppercase tracking-wider flex items-center gap-2">
+                <Waves className="w-4 h-4 text-blue-500" /> Live Water Bodies
+              </h2>
+              <p className="text-xs text-gray-500 mt-0.5">NDWI + MNDWI dual-index detection (Landsat 8/9)</p>
+            </div>
+            <button
+              onClick={handleComputeWater}
+              disabled={waterLoading || !selectedWsId}
+              className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-sm disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {waterLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Detect Water'}
+            </button>
+          </div>
+
+          {waterResult && (
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-blue-50 rounded p-3">
+                  <span className="text-[10px] text-blue-700 font-semibold uppercase block">Water Extent</span>
+                  <span className="text-xl font-bold text-blue-800">{waterResult.water_extent_pct ?? '—'}%</span>
+                </div>
+                <div className="bg-blue-50 rounded p-3">
+                  <span className="text-[10px] text-blue-700 font-semibold uppercase block">Est. Area</span>
+                  <span className="text-xl font-bold text-blue-800">{waterResult.water_area_ha ?? '—'} ha</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-gray-400 leading-relaxed">{waterResult.methodology}</p>
+              <p className="text-[10px] text-gray-400">
+                {waterResult.provider} · {waterResult.dataset}
+              </p>
+            </div>
+          )}
+          {waterError && (
+            <div className="bg-rose-50 border border-rose-200 rounded p-3 text-xs text-rose-700">{waterError}</div>
+          )}
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-4">
+          <div className="flex items-center justify-between gap-3 border-b border-gray-100 pb-3">
+            <div>
+              <h2 className="text-sm font-bold text-text-dark uppercase tracking-wider flex items-center gap-2">
+                <Activity className="w-4 h-4 text-cyan-600" /> Live Drainage Network
+              </h2>
+              <p className="text-xs text-gray-500 mt-0.5">WWF HydroSHEDS flow accumulation (SRTM-derived)</p>
+            </div>
+            <button
+              onClick={handleComputeDrainage}
+              disabled={drainageLoading || !selectedWsId}
+              className="bg-cyan-700 hover:bg-cyan-800 text-white text-xs font-semibold px-3 py-1.5 rounded shadow-sm disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {drainageLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Trace Drainage'}
+            </button>
+          </div>
+
+          {drainageResult && (
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-cyan-50 rounded p-3">
+                  <span className="text-[10px] text-cyan-700 font-semibold uppercase block">Drainage Density</span>
+                  <span className="text-xl font-bold text-cyan-800">{drainageResult.drainage_density_pct ?? '—'}%</span>
+                </div>
+                <div className="bg-cyan-50 rounded p-3">
+                  <span className="text-[10px] text-cyan-700 font-semibold uppercase block">Channel Length</span>
+                  <span className="text-xl font-bold text-cyan-800">{drainageResult.approx_channel_length_km ?? '—'} km</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-gray-400 leading-relaxed">{drainageResult.methodology}</p>
+              <p className="text-[10px] text-gray-400">
+                {drainageResult.provider} · {drainageResult.dataset}
+              </p>
+            </div>
+          )}
+          {drainageError && (
+            <div className="bg-rose-50 border border-rose-200 rounded p-3 text-xs text-rose-700">{drainageError}</div>
+          )}
+        </div>
       </div>
 
       {/* ── SECTION 4: HISTORIC GIS BASELINE TREND ──────────────────────────── */}

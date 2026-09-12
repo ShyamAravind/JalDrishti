@@ -70,7 +70,26 @@ export class SatelliteDataProvider {
    * @param {number} radiusM
    * @returns {Promise<Object>} Point analysis result
    */
-  async computePointAnalysis(lat, lng, radiusM) {
+    async computePointAnalysis(lat, lng, radiusM) {
     throw new Error('computePointAnalysis() not implemented');
+  }
+
+  /**
+   * Computes live water-body extent for a watershed and year.
+   * @param {string} watershedId
+   * @param {number} year
+   * @returns {Promise<Object>} Water-body result
+   */
+  async computeWaterBodies(watershedId, year) {
+    throw new Error('computeWaterBodies() not implemented');
+  }
+
+  /**
+   * Computes drainage-network indicators for a watershed.
+   * @param {string} watershedId
+   * @returns {Promise<Object>} Drainage result
+   */
+  async computeDrainage(watershedId) {
+    throw new Error('computeDrainage() not implemented');
   }
 }

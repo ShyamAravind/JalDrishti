@@ -15,11 +15,11 @@ import { SatelliteDataProvider } from './satelliteProvider.js';
 export class SrishtiDrishtiProvider extends SatelliteDataProvider {
   constructor() {
     super('SRISHTI-DRISHTI', 'adapter');
-    this.endpointUrl = process.env.SRISHTI_ENDPOINT_URL || 'https://bhoonidhi.nrsc.gov.in/srishti/api/v1';
+        this.endpointUrl = process.env.SRISHTI_API_URL || 'https://bhoonidhi.nrsc.gov.in/srishti/api/v1';
   }
 
   isConfigured() {
-    return Boolean(process.env.SRISHTI_API_KEY && process.env.SRISHTI_TOKEN);
+    return Boolean(process.env.SRISHTI_API_KEY && process.env.SRISHTI_CLIENT_ID && process.env.SRISHTI_CLIENT_SECRET);
   }
 
   async getStatus() {
@@ -83,10 +83,30 @@ export class SrishtiDrishtiProvider extends SatelliteDataProvider {
     throw new Error('Authorized credentials required for remote execution.');
   }
 
-  async computePointAnalysis(lat, lng, radiusM) {
+    async computePointAnalysis(lat, lng, radiusM) {
     if (!this.isConfigured()) {
       const err = new Error('SRISHTI_DRISHTI_UNCONFIGURED');
       err.code = 'INTEGRATION_READY';
+      throw err;
+    }
+    throw new Error('Authorized credentials required for remote execution.');
+  }
+
+  async computeWaterBodies(watershedId, year) {
+    if (!this.isConfigured()) {
+      const err = new Error('SRISHTI_DRISHTI_UNCONFIGURED');
+      err.code = 'INTEGRATION_READY';
+      err.details = 'Water-body detection via authorized SRISHTI-DRISHTI/Bhoonidhi services requires sanctioned NRSC API access. Active operational provider is Google Earth Engine (NDWI/MNDWI).';
+      throw err;
+    }
+    throw new Error('Authorized credentials required for remote execution.');
+  }
+
+  async computeDrainage(watershedId) {
+    if (!this.isConfigured()) {
+      const err = new Error('SRISHTI_DRISHTI_UNCONFIGURED');
+      err.code = 'INTEGRATION_READY';
+      err.details = 'Drainage-network data via authorized SRISHTI-DRISHTI services requires sanctioned NRSC API access. Active operational provider is Google Earth Engine (WWF HydroSHEDS).';
       throw err;
     }
     throw new Error('Authorized credentials required for remote execution.');

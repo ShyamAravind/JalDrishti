@@ -324,12 +324,43 @@ export interface LandDegradationResult {
     surface_moisture_deficit: { score: number; weight: string; measured_ndwi: number };
   };
   methodology: string;
-  disclaimer: string;
+    disclaimer: string;
   source: string;
   provider: string;
   dataset: string;
   computed_at: string;
 }
+
+export interface WaterBodiesResult {
+  watershed_id: string;
+  watershed_name: string;
+  year: number;
+  water_extent_pct: number | null;
+  water_area_ha: number | null;
+  ndwi_mean: number | null;
+  mndwi_mean: number | null;
+  methodology: string;
+  source: string;
+  provider: string;
+  dataset: string;
+  computed_at: string;
+}
+
+export interface DrainageResult {
+  watershed_id: string;
+  watershed_name: string;
+  drainage_density_pct: number | null;
+  approx_channel_length_km: number | null;
+  max_upstream_accumulation_cells: number | null;
+  channel_initiation_threshold_cells: number;
+  methodology: string;
+  source: string;
+  provider: string;
+  dataset: string;
+  computed_at: string;
+}
+
+// ── Evidence Validation Engine ────────────────────────────────────────────────
 
 // ── Evidence Validation Engine ────────────────────────────────────────────────
 export interface ValidationCheckItem {
