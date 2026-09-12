@@ -12,6 +12,7 @@ import ProjectDetailPage from './pages/ProjectDetail';
 import GeoImageIntel from './pages/GeoImageIntel';
 import InterventionAssessmentPage from './pages/InterventionAssessment';
 import FieldOfficerDashboard from './pages/FieldOfficerDashboard';
+import FieldEvidenceSubmission from './pages/FieldEvidenceSubmission';
 import Login from './pages/Login';
 import Chatbot from './components/Chatbot';
 import { useAuthStore } from './store/authStore';
@@ -48,8 +49,9 @@ const App: React.FC = () => {
           {officer.isFieldOfficer ? (
             // Field Officer: deliberately restricted to their own simple
             // pages — no GIS/analytics tooling. See officers.ts.
-            <Routes>
+                        <Routes>
               <Route path="/" element={<FieldOfficerDashboard />} />
+              <Route path="/submit-evidence" element={<FieldEvidenceSubmission />} />
               <Route path="*" element={<FieldOfficerDashboard />} />
             </Routes>
           ) : (

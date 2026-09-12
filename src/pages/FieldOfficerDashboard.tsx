@@ -1,5 +1,6 @@
 import React from 'react';
 import { Camera, ClipboardList } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 
 const FieldOfficerDashboard: React.FC = () => {
@@ -16,18 +17,20 @@ const FieldOfficerDashboard: React.FC = () => {
         </p>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4">
+            <Link
+        to="/submit-evidence"
+        className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4 hover:border-primary-300 transition-colors"
+      >
         <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
           <Camera className="w-5 h-5 text-primary-600" />
         </div>
         <div>
-          <h2 className="text-sm font-bold text-text-dark">Field Evidence Submission</h2>
+          <h2 className="text-sm font-bold text-text-dark">Submit Field Evidence</h2>
           <p className="text-xs text-gray-500 mt-1">
-            The evidence upload form is coming in the next phase — this page confirms
-            your Field Officer login and routing work correctly first.
+            Upload a geo-tagged photo, select a project, and add your field observation.
           </p>
         </div>
-      </div>
+      </Link>
 
       <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4">
         <div className="w-10 h-10 rounded-full bg-secondary-100 flex items-center justify-center flex-shrink-0">
